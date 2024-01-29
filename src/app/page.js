@@ -1,5 +1,6 @@
 import React from "react";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
+import FilmsList from "@/components/FilmsList";
 
 
 export default function Home() {
@@ -14,6 +15,7 @@ export default function Home() {
     Track, journal, and treasure your film-watching experiences with us.
     </h3>
     </div>
+    <FilmsList/>
        </MaxWidthWrapper>
        <div>
         <div className="relative isolate">

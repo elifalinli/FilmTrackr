@@ -10,6 +10,7 @@ import {
 } from "@kinde-oss/kinde-auth-nextjs/server";
 import { ArrowRight } from "lucide-react";
 import { Avatar, AvatarImage, AvatarFallback } from "./ui/avatar";
+import { Separator } from "@/components/ui/separator"
 
 let { isAuthenticated, getUser } = getKindeServerSession();
 
@@ -42,6 +43,7 @@ const Navbar = async () => {
                 >
                   Sign in{" "}
                 </LoginLink>
+                <Separator orientation="vertical" decorative="true"/>
                 <RegisterLink
                   className={`${buttonVariants({
                     size: "sm",
@@ -51,10 +53,12 @@ const Navbar = async () => {
                 </RegisterLink>
               </>
             ) : (
-              <div className="flex items-center space-x-3">
+              <div className="flex h-5 items-center space-x-2">
               <p>My Films <span className="font-semibold">|</span></p>
-              <p>Watchlist <span className="font-semibold">|</span></p>
-              <LogoutLink
+              <Separator orientation="vertical" decorative="true"/>
+              <p>Watchlist <span className="font-semibold pr-0">|</span></p>
+              <Separator orientation="vertical" decorative="true"/>
+              <LogoutLink 
               >
                 <Button>
                    Sign Out

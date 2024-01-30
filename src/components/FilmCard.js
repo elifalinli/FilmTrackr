@@ -3,7 +3,7 @@ import { ScrollArea } from './ui/scroll-area';
 
 const FilmCard = () => {
   return (
-    <ScrollArea className="h-72 w-48 rounded-md border">
+    <ScrollArea className="h-70 w-48 rounded-md">
     <div className='flex items-center justify-center '>
         <div className='mx-auto rounded-xl'>
              <div className="rounded-3xl max-w-[350px] shadow-sm bg-slate-100 flex-col">

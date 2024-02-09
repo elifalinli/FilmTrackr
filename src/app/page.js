@@ -3,7 +3,7 @@ import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import FilmsList from "@/components/FilmsList";
 
 
-export default function Home() {
+const Home = () => {
   return (
     <main>
        <MaxWidthWrapper className="mb-12 mt-20 sm:mt-32 flex flex-col items-center text-center justify-center">
@@ -55,3 +55,4 @@ export default function Home() {
     </main>
   );
 }
+export default Home;

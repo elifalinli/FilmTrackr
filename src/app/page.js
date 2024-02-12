@@ -3,7 +3,8 @@ import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import FilmsList from "@/components/FilmsList";
 
 
-const Home = () => {
+const Home = ({searchParams}) => {
+  const query = searchParams?.query || ""
   return (
     <main>
        <MaxWidthWrapper className="mb-12 mt-20 sm:mt-32 flex flex-col items-center text-center justify-center">
@@ -15,7 +16,7 @@ const Home = () => {
     Track, journal, and treasure your film-watching experiences with us.
     </h3>
     </div>
-    <FilmsList/>
+    <FilmsList searchParams={searchParams} query={query}/>
        </MaxWidthWrapper>
        <div>
         <div className="relative isolate">

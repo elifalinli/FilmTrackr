@@ -1,41 +1,57 @@
 import React from "react";
 import FilmCard from "./FilmCard";
-import { ArrowDownWideNarrow } from "lucide-react";
-import { Filter } from "lucide-react";
-import { Search } from "lucide-react";
+import { ArrowDownWideNarrow, Filter, Search } from "lucide-react";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "./ui/tooltip";
-import { getMovieDetailsById, getMovieImagesById, getTrendingFilms } from "@/lib/utils";
+import { Input } from "./ui/input";
+import {
+  getUpcomingMovieDetails,
+  getPopularMovies,
+  getMoviesByKeyword,
+  getMovieById
+} from "@/lib/utils";
 
-
-
-const FilmsList = async () => {
-  const films = await getTrendingFilms();
-  const filmData = films.movie_results;
-  console.log(filmData)
+const FilmsList = async ({query}) => {
+  
+  const films = await getPopularMovies();
+  
 
   const filmsWithDetails = await Promise.all(
-    filmData.map(async (film) => {
-      const images = await getMovieImagesById(film.imdb_id);
-      const details = await getMovieDetailsById(film.imdb_id)
+    films.map(async (film) => {
+      const searchedMovies = await getMoviesByKeyword();
+      const details = await getMovieById(film.id)
       return {
         ...film,
-        images: images,
+        searchedMovies: searchedMovies,
         details: details
       };
     })
   );
-
+console.log(filmsWithDetails)
+const moviesByKeyword = await getMoviesByKeyword(query)
+console.log(moviesByKeyword)
+ 
   return (
     <div className="my-10 pt-10">
       <div className="flex justify-between items-center">
         <h2 className="text-left text-lg ml-3 font-medium ">Trending...</h2>
         <div className="flex mx-2">
           <TooltipProvider>
+            <div className="flex w-full max-w-sm items-center space-x-2">
+              <Input
+                type="search"
+                placeholder="Search films"
+                className="border rounded-md grow"
+                onChange
+                
+              />
+              <Search alt="search"  className="m-2" />
+            </div>
+
             <Tooltip>
               <TooltipTrigger>
                 {" "}
@@ -59,25 +75,16 @@ const FilmsList = async () => {
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger>
-                {" "}
-                <Search alt="search" className="m-2" />{" "}
-              </TooltipTrigger>
-              <TooltipContent>
-                {" "}
-                <p>Search through films</p>{" "}
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
         </div>
       </div>
-      <div className="rounded-xl border border-gray-500 p-3 sm:p-12 w-auto">
-        <div className="mt-10 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 p-3 w-full">
-            {filmsWithDetails.map((film) => (
-              <FilmCard key={film.imdb_id} film={film} />
-            ))}
+      <div className="rounded-xl border border-gray-500 p-3 sm:p-12 w-auto ">
+        <div className="mt-10 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-10 p-3 w-full">
+          {filmsWithDetails.map((film) => (
+            <div className="relative" key={film.id}>
+              <FilmCard film={film} id={film.id} />
+              <div className="absolute inset-0 bg-gray-800 opacity-0 hover:opacity-50 transition-opacity duration-300 rounded-xl"></div>
+            </div>
+          ))}
         </div>
       </div>
     </div>

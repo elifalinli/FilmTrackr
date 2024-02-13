@@ -1,10 +1,36 @@
-import React from "react";
+'use client'
+
+import React, {useState, useEffect} from "react";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import FilmsList from "@/components/FilmsList";
 
 
-const Home = ({searchParams}) => {
-  const query = searchParams?.query || ""
+
+const Home = () => {
+  const [popularMovies, setPopularMovies] = useState([])
+  // const [movies, setMovies] = useState([])
+
+  useEffect(() => {
+    const getPopularMovies = async () => {
+      const response = await fetch('/api/movies');
+      const popularMovies = await response.json();
+      setPopularMovies(popularMovies.results)
+    }
+
+    getPopularMovies()
+  }, [])
+
+  // useEffect(() => {
+  //   const getMovies = async () => {
+  //     const response = await fetch('/api/movies');
+  //     const movies = await response.json();
+  //     setMovies(movies.results)
+  //   }
+
+  //   getMovies()
+  // }, [])
+  // console.log(movies)
+
   return (
     <main>
        <MaxWidthWrapper className="mb-12 mt-20 sm:mt-32 flex flex-col items-center text-center justify-center">
@@ -16,7 +42,7 @@ const Home = ({searchParams}) => {
     Track, journal, and treasure your film-watching experiences with us.
     </h3>
     </div>
-    <FilmsList searchParams={searchParams} query={query}/>
+    <FilmsList popularMovies={popularMovies} getSearchResults={(results) => setPopularMovies(results)} />
        </MaxWidthWrapper>
        <div>
         <div className="relative isolate">

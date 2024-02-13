@@ -3,24 +3,10 @@ import * as React from "react"
 import { useState, useEffect } from "react"
 
 import { cn } from "@/lib/utils"
-import { useSearchParams, usePathname, useRouter} from "next/navigation"
-import {useDebounce} from 'use-debounce'
 
 const Input = React.forwardRef(({ className, type, ...props }, ref) => {
-  const searchParams = useSearchParams()
-  const pathname = usePathname();
-  const { replace } = useRouter();
 
-  function handleSearch(term) {
-    const params = new URLSearchParams(searchParams)
-    if (term) {
-      params.set('query', term);
-    } else {
-      params.delete('query');
-    }
-    replace(`${pathname}?${params.toString()}`);
-
-  }
+ 
 
   return (
     (<input
@@ -31,11 +17,7 @@ const Input = React.forwardRef(({ className, type, ...props }, ref) => {
       )}
       ref={ref}
       {...props}
-    
-      onChange={(e) => {
-        handleSearch(e.target.value)
-      }}
-      defaultValue={searchParams.get('query')?.toString()} />)
+     />)
   );
 })
 Input.displayName = "Input"

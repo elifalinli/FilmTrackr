@@ -7,33 +7,12 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "./ui/tooltip";
-import { Input } from "./ui/input";
-import {
-  getUpcomingMovieDetails,
-  getPopularMovies,
-  getMoviesByKeyword,
-  getMovieById
-} from "@/lib/utils";
 
-const FilmsList = async ({query}) => {
-  
-  const films = await getPopularMovies();
-  
+import SearchFilms from "./SearchFilms";
 
-  const filmsWithDetails = await Promise.all(
-    films.map(async (film) => {
-      const searchedMovies = await getMoviesByKeyword();
-      const details = await getMovieById(film.id)
-      return {
-        ...film,
-        searchedMovies: searchedMovies,
-        details: details
-      };
-    })
-  );
-console.log(filmsWithDetails)
-const moviesByKeyword = await getMoviesByKeyword(query)
-console.log(moviesByKeyword)
+
+const FilmsList = ({popularMovies, getSearchResults}) => {
+  
  
   return (
     <div className="my-10 pt-10">
@@ -41,17 +20,7 @@ console.log(moviesByKeyword)
         <h2 className="text-left text-lg ml-3 font-medium ">Trending...</h2>
         <div className="flex mx-2">
           <TooltipProvider>
-            <div className="flex w-full max-w-sm items-center space-x-2">
-              <Input
-                type="search"
-                placeholder="Search films"
-                className="border rounded-md grow"
-                onChange
-                
-              />
-              <Search alt="search"  className="m-2" />
-            </div>
-
+            <SearchFilms getSearchResults={getSearchResults}/>
             <Tooltip>
               <TooltipTrigger>
                 {" "}
@@ -78,14 +47,14 @@ console.log(moviesByKeyword)
         </div>
       </div>
       <div className="rounded-xl border border-gray-500 p-3 sm:p-12 w-auto ">
-        <div className="mt-10 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-10 p-3 w-full">
-          {filmsWithDetails.map((film) => (
-            <div className="relative" key={film.id}>
+        <ul className="mt-10 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-10 p-3 w-full">
+          {popularMovies.map((film) => (
+            <li className="relative" key={film.id}>
               <FilmCard film={film} id={film.id} />
               <div className="absolute inset-0 bg-gray-800 opacity-0 hover:opacity-50 transition-opacity duration-300 rounded-xl"></div>
-            </div>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </div>
   );

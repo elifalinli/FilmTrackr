@@ -1,36 +1,20 @@
-'use client'
 
-import React, {useState, useEffect} from "react";
+import React from "react";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import FilmsList from "@/components/FilmsList";
 
 
 
-const Home = () => {
-  const [popularMovies, setPopularMovies] = useState([])
-  // const [movies, setMovies] = useState([])
 
-  useEffect(() => {
-    const getPopularMovies = async () => {
-      const response = await fetch('/api/movies');
-      const popularMovies = await response.json();
-      setPopularMovies(popularMovies.results)
-    }
+const Home = async () => {
 
-    getPopularMovies()
-  }, [])
-
-  // useEffect(() => {
-  //   const getMovies = async () => {
-  //     const response = await fetch('/api/movies');
-  //     const movies = await response.json();
-  //     setMovies(movies.results)
-  //   }
-
-  //   getMovies()
-  // }, [])
-  // console.log(movies)
-
+  const trendingMoviesRes = await fetch(`https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.API_KEY}`);
+  const trendingMoviesData = await trendingMoviesRes.json();
+ 
+  const [filterOption,setFilterOption] = useState('Trending')
+  const [movieData, setMovieData] = useState([])
+  setMovieData(trendingMoviesData)
+  
   return (
     <main>
        <MaxWidthWrapper className="mb-12 mt-20 sm:mt-32 flex flex-col items-center text-center justify-center">
@@ -42,7 +26,7 @@ const Home = () => {
     Track, journal, and treasure your film-watching experiences with us.
     </h3>
     </div>
-    <FilmsList popularMovies={popularMovies} getSearchResults={(results) => setPopularMovies(results)} />
+    <FilmsList trendingMovies={trendingMoviesData} />
        </MaxWidthWrapper>
        <div>
         <div className="relative isolate">

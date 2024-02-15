@@ -3,24 +3,42 @@ import { NextResponse } from "next/server";
 const apiKEY = process.env.API_KEY;
 const apiToken = process.env.API_TOKEN;
 
-async function fetchPopularMovies(pageNum = 1) {
-  const response = await fetch(
-    `https://api.themoviedb.org/3/movie/popular?language=en-US&page=${pageNum}?api_key=${apiKEY}`,
-    {
-      method: "GET",
-      headers: {
-        accept: "application/json",
-        Authorization: `Bearer ${apiToken}`,
-      },
+const generateSitemap = async (count) => {
+  const sitemapUrlsArray = ["/", "/search", "/movies"];
+
+  const promiseArray = [];
+
+  for (let i = 1; i <= count; i++) {
+    promiseArray.push(
+      fetch(
+        `https://api.themoviedb.org/3/discover/movie?api_key=${apiKEY}&language=en-US&sort_by=popularity.desc&include_adult=true&include_video=false&page=${i}`
+      )
+    );
+  }
+  const movies = await Promise.all(promiseArray);
+  const moviesJson = await Promise.all(movies.map((movie) => movie.json()));
+
+  for (const moviesObj of moviesJson) {
+    for (const movie of moviesObj.results) {
+      sitemapUrlsArray.push(`/movies/${movie.id}`);
     }
-  );
-  const popularMovies = await response.json();
-  return popularMovies;
+  }
+  const sitemap = sitemapUrlsArray.map((url) => websiteUrl + url).join("\n");
+
+  return sitemap;
+};
+
+async function GET (req) {
+  const sitemap = await generateSitemap(10)
+
+  return new Response(
+    sitemap,
+    {
+        status: 200,
+        headers: {
+            'content-type': 'text/plain',
+            'cache-control': 'stale-while-revalidate, s-maxage=3600',
+        },
+    },
+)
 }
-
-export async function GET(request) {
-    const popularMovies = await fetchPopularMovies();
-    return NextResponse.json(popularMovies)
-
-}
-

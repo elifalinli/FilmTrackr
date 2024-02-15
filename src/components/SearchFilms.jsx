@@ -2,7 +2,6 @@
 import React, {useState} from "react";
 import { Input } from "./ui/input";
 import { Search } from "lucide-react";
-import Link from 'next/link'
 
 
 const SearchFilms = ({getSearchResults}) => {

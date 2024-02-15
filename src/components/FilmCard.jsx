@@ -3,7 +3,7 @@ import { ScrollArea } from "./ui/scroll-area";
 
 
 const FilmCard = ({film, id}) => {
-
+// console.log(film)
   
   return (
     <ScrollArea className="h-full rounded-md">

@@ -5,14 +5,12 @@ import FilmsList from "@/components/FilmsList";
 
 
 
+
 const Home = async () => {
 
   const trendingMoviesRes = await fetch(`https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.API_KEY}`);
   const trendingMoviesData = await trendingMoviesRes.json();
  
-  // const [filterOption,setFilterOption] = useState('Trending')
-  // const [movieData, setMovieData] = useState([])
-  // setMovieData(trendingMoviesData)
 
   return (
     <main>

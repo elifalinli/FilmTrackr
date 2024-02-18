@@ -8,10 +8,6 @@ import FilmsList from "@/components/FilmsList";
 
 const Home = async () => {
 
-  const trendingMoviesRes = await fetch(`https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.API_KEY}`);
-  const trendingMoviesData = await trendingMoviesRes.json();
- 
-
   return (
     <main>
        <MaxWidthWrapper className="mb-12 mt-20 sm:mt-32 flex flex-col items-center text-center justify-center">
@@ -23,7 +19,7 @@ const Home = async () => {
     Track, journal, and treasure your film-watching experiences with us.
     </h3>
     </div>
-    <FilmsList trendingMovies={trendingMoviesData} />
+    <FilmsList/>
        </MaxWidthWrapper>
        <div>
         <div className="relative isolate">

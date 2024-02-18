@@ -15,7 +15,7 @@ import getCardsByCategory from "@/lib/utils";
 
 const apiKey = process.env.API_KEY
 
-const FilmsList = ({ trendingMovies }) => {
+const FilmsList = () => {
 
   const categoryArray = [
     {
@@ -52,30 +52,22 @@ const FilmsList = ({ trendingMovies }) => {
     },
   ];
   
-const [filterOption,setFilterOption] = useState("")
- const [filteredMovies, setFilteredMovies] = useState(trendingMovies.results)
-
- const handleFilterChange = (option) => {
-  setFilterOption(option)
- }
-
+const [filterOption,setFilterOption] = useState("Popular")
+const [filteredMovies, setFilteredMovies] = useState([])
 
  useEffect(() => {
-  if(filterOption !== null ) {
-    const selectedCategory = categoryArray.find(category => category.title === filterOption)
-    if(selectedCategory) {
-    getCardsByCategory(selectedCategory.apiUrl)
-    .then((movies) => {
+  const fetchData = async () => {
+    try {
+      const selectedCategory = categoryArray.find(category => category.title === filterOption);
+      const movies = await getCardsByCategory(selectedCategory.apiUrl);
       setFilteredMovies(movies);
-    })
-    .catch((err) => {
-      console.error("error fetching movies", err)
-    });
-  }
-  } else {
-    filteredMovies
-  }
- }, [filterOption, trendingMovies])
+    } catch (err) {
+      console.error("error fetching movies", err);
+    }
+  };
+
+  fetchData();
+}, [filterOption]);
 
  return (
     <div className="my-10 pt-10">
@@ -97,7 +89,7 @@ const [filterOption,setFilterOption] = useState("")
           </TooltipProvider>
           <TooltipProvider>
             <Tooltip>
-              <FilterFilms onFilterChange={handleFilterChange} categoryArray={categoryArray}/>
+              <FilterFilms setFilterOption={setFilterOption} categoryArray={categoryArray}/>
             </Tooltip>
           </TooltipProvider>
         </div>

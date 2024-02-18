@@ -3,12 +3,12 @@ import { Filter } from "lucide-react";
 import { useRef } from "react";
 
 
-const FilterFilms = ({ onFilterChange, categoryArray }) => {
+const FilterFilms = ({ setFilterOption, categoryArray }) => {
   const selectTriggerRef = useRef(null);
 
   const handleClick = (e) => {
     const filterOption = e.target.value;
-    onFilterChange(filterOption);
+    setFilterOption(filterOption);
   };
 
   return (

@@ -1,9 +1,10 @@
 "use client";
 import { Filter } from "lucide-react";
 import { useRef } from "react";
+import categoryArray from "data";
 
 
-const FilterFilms = ({ setFilterOption, categoryArray }) => {
+const FilterFilms = ({ setFilterOption}) => {
   const selectTriggerRef = useRef(null);
 
   const handleClick = (e) => {

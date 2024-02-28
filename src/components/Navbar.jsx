@@ -1,4 +1,3 @@
-import React from "react";
 import Link from "next/link";
 import MaxWidthWrapper from "./MaxWidthWrapper";
 import { Button, buttonVariants } from "./ui/button";
@@ -54,9 +53,9 @@ const Navbar = async () => {
               </>
             ) : (
               <div className="flex h-5 items-center space-x-2">
-              <p>My Films <span className="font-semibold">|</span></p>
+              <Link href="/myfilms" >My Films <span className="font-semibold pr-0">|</span></Link>
               <Separator orientation="vertical" decorative="true"/>
-              <p>Watchlist <span className="font-semibold pr-0">|</span></p>
+              <Link href="/watchlist" >Watchlist <span className="font-semibold pr-0">|</span></Link>
               <Separator orientation="vertical" decorative="true"/>
               <LogoutLink 
               >

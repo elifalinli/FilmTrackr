@@ -4,6 +4,7 @@ import FilmCard from "./FilmCard";
 import getCardsByCategory from "@/lib/utils";
 import FilmsListBar from "./FilmsListBar";
 import categoryArray from "data";
+import Link from "next/link";
 
 const FilmsList = () => {
   const [filterOption, setFilterOption] = useState("Popular");
@@ -64,8 +65,10 @@ let inputValue = searchValue.trim().toLowerCase();
           <ul className="mt-10 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-10 p-3 w-full">
             {filteredMovies.map((film) => (
               <li className="relative" key={film.id}>
+                <Link href={`/details/${film.id ?? film.props.id}`}>
                 <FilmCard film={film} searched={searched} />
                 <div className="absolute inset-0 bg-gray-800 opacity-0 hover:opacity-50 transition-opacity duration-300 rounded-xl"></div>
+                </Link>
               </li>
             ))}
           </ul>

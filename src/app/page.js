@@ -1,27 +1,21 @@
-import React from "react";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import FilmsList from "@/components/FilmsList";
 
-
-
-
-
 const Home = async () => {
-
   return (
     <main>
-       <MaxWidthWrapper className="mb-12 mt-20 sm:mt-32 flex flex-col items-center text-center justify-center">
-       <div className="rounded-xl border border-gray-300 p-6 sm:p-12">
-        <h1 className="scroll-m-20 text-4xl font-bold tracking-tight lg:text-5xl">
-      Film Trackr
-    </h1>
-    <h3 className=" mt-9 scroll-m-20 text-2xl font-semibold tracking-tight first:mt-0">
-    Track, journal, and treasure your film-watching experiences with us.
-    </h3>
-    </div>
-    <FilmsList/>
-       </MaxWidthWrapper>
-       <div>
+      <MaxWidthWrapper className="mb-12 mt-20 sm:mt-32 flex flex-col items-center text-center justify-center">
+        <div className="rounded-xl border border-gray-300 p-6 sm:p-12">
+          <h1 className="scroll-m-20 text-4xl font-bold tracking-tight lg:text-5xl">
+            Film Trackr
+          </h1>
+          <h3 className=" mt-9 scroll-m-20 text-2xl font-semibold tracking-tight first:mt-0">
+            Track, journal, and treasure your film-watching experiences with us.
+          </h3>
+        </div>
+        <FilmsList />
+      </MaxWidthWrapper>
+      <div>
         <div className="relative isolate">
           <div
             aria-hidden="true"
@@ -37,8 +31,7 @@ const Home = async () => {
           </div>
           <div>
             <div className="mx-auto max-w-6xl px-6 lg:px-8 ">
-              <div className="mt-16 flow-root sm:mt-24 first-line:">
-              </div>
+              <div className="mt-16 flow-root sm:mt-24 first-line:"></div>
             </div>
           </div>
 
@@ -58,5 +51,5 @@ const Home = async () => {
       </div>
     </main>
   );
-}
+};
 export default Home;

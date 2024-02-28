@@ -3,8 +3,6 @@ import {Playfair_Display as FontSans} from "next/font/google"
 import "../../styles/globals.css";
 import { cn } from "../lib/utils"
 import Navbar from "@/components/Navbar";
-import React from "react";
-import Home from "./page";
 
 export const fontSans = FontSans({
   subsets: ["latin"],
@@ -26,7 +24,7 @@ export default function RootLayout({ children }) {
         )}
         >
       <Navbar/>
-      <Home/>
+      <main>{children}</main>
       </body>
     </html>
   );

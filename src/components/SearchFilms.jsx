@@ -1,32 +1,34 @@
-'use client'
-import React, {useState} from "react";
+"use client";
 import { Input } from "./ui/input";
 import { Search } from "lucide-react";
 
+const SearchFilms = ({ setSearchValue, handleSearch, inputValue }) => {
+  const handleChange = async (e) => {
+    setSearchValue(e.target.value);
+  };
 
-const SearchFilms = ({getSearchResults}) => {
-    const [query, setQuery] = useState('')
-    const handleSubmit = async (e) => {
-        e.preventDefault()
-        const response = await fetch(`/api/movies/search?query=${query}`)
-        const movie = await response.json()
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleSearch();
+  };
 
-        getSearchResults(movie)
-    }
   return (
     <div>
-    <form onSubmit={handleSubmit} className="flex w-full max-w-sm items-center space-x-2">
-      <Input
-        type="search"
-        placeholder="Search films..."
-        className="border rounded-md grow"
-        onChange={(e) => setQuery(e.target.value)}
-        value={query}
-      />
-      <button type="submit">
-      <Search  alt="search" className=" ml-1 m-2 " />
-      </button>
-    </form>
+      <form
+        onSubmit={handleSubmit}
+        className="flex w-full max-w-sm items-center space-x-2"
+      >
+        <Input
+          type="search"
+          placeholder="Search films..."
+          className="border rounded-md grow"
+          onChange={handleChange}
+          value={inputValue}
+        />
+        <button type="submit">
+          <Search alt="search" className=" ml-1 m-2 " />
+        </button>
+      </form>
     </div>
   );
 };

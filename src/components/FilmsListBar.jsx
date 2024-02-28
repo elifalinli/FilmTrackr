@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Tooltip,
   TooltipContent,
@@ -10,14 +9,19 @@ import FilterFilms from "./FilterFilms";
 import { ArrowDownWideNarrow } from "lucide-react";
 
 
-const FilmsListBar = ({setFilterOption, filterOption}) => {
+const FilmsListBar = ({setFilterOption, filterOption, setSearchValue, handleSearch, inputValue, searched}) => {
 
   return (
     <div className="flex justify-between items-center">
-      <h2 className="text-left text-lg ml-3 font-medium ">{filterOption}...</h2>
+      {searched ? (
+        <h2 className="text-left text-lg ml-3 font-medium ">Results for "{inputValue}""...</h2>
+      ) : (
+        <h2 className="text-left text-lg ml-3 font-medium ">{filterOption}...</h2>
+      )}
+      
       <div className="flex mx-2">
         <TooltipProvider>
-          <SearchFilms />
+          <SearchFilms setSearchValue={setSearchValue} handleSearch={handleSearch} inputValue={inputValue} />
           <Tooltip>
             <TooltipTrigger>
               {" "}

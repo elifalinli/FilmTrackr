@@ -5,6 +5,7 @@ import getCardsByCategory from "@/lib/utils";
 import FilmsListBar from "./FilmsListBar";
 import categoryArray from "data";
 import Link from "next/link";
+import AddToMyFilms from "./AddToMyFilms";
 
 const FilmsList = () => {
   const [filterOption, setFilterOption] = useState("Popular");
@@ -69,6 +70,7 @@ let inputValue = searchValue.trim().toLowerCase();
                 <FilmCard film={film} searched={searched} />
                 <div className="absolute inset-0 bg-gray-800 opacity-0 hover:opacity-50 transition-opacity duration-300 rounded-xl"></div>
                 </Link>
+                <AddToMyFilms />
               </li>
             ))}
           </ul>
